@@ -1,0 +1,70 @@
+<html>
+
+<head>
+
+    <title>Quiz v3.0</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Keywords" content="KBRE">
+    <meta name="Description" content="KBRE">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+                            <script>
+                                function clickNextButton(n) {
+                                    submitAnswer(n + 1);
+                                }
+                                function clickPrevButton(n) {
+                                    submitAnswer(n + 1);
+                                }
+                                function submitAnswer(n) {
+                                    var f = document.getElementById("quizform");
+                                    f["nextnumber"].value = n;
+                                    f.submit();
+                                }
+        
+                            </script>
+<body>
+<table style="margin: 10;">
+    <tr>
+        <td>Hearder</td>
+    </tr>
+    <tr>
+        <td><hr/></td>
+    </tr>
+    <tr>
+        <td>
+            <div class="w3-row w3-white">
+                <div class="w3-col l10 m12" id="main">
+                    <div id="mainLeaderboard" style="overflow:hidden;">
+                        <!-- MainLeaderboard-->
+                        KBRE
+        
+                    </div>
+        
+                    <h1>KBRE Quiz - <%=data.username%></h1>
+        
+                    <div id="quizmain">
+                        <div id="quizcontainer">
+        
+
+                            <% for(var i=0;1<data.questions.length;i++){ %>
+test <%= data.questions[i].text %>
+                            <% } %>
+                            <div class="w3-panel w3-info linktotutdiv">
+                                <h4>Please do not refresh the screen or use back button</h4>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+</body>
+
+</html>

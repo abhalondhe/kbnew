@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>KBRE</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+	<div class="jumbotron text-center">
+		<h3>Welcome to KBRE final exam, <%=data.name%> !</h3>
+	</div>
+	<div id=bkgDiv">
+	<div class="container text-center" id="welcomePanel">
+		<div class="row">
+			<div class="col-sm-2">
+			</div>
+			<div class="col-sm-8">
+				<div>
+					<div class="text-center">
+						<h3>Please read below instructions before the exam</h3>
+					</div>
+					<div class="list-group">
+						<a href="#" class="list-group-item active">
+							<h4 class="list-group-item-heading">No browser refresh</h4>
+							<p class="list-group-item-text">Please do not refresh this page while you are here. You will
+								lose all your answers if you refresh this before submit the answers.</p>
+						</a>
+						<a href="#" class="list-group-item">
+							<h4 class="list-group-item-heading">Exam time</h4>
+							<p class="list-group-item-text">You have 60 mins to complete this exam</p>
+						</a>
+						<a href="#" class="list-group-item">
+							<h4 class="list-group-item-heading">Question Types</h4>
+							<p class="list-group-item-text">You will have some questions with single choice, some
+								questions with multiple choice and some free text answers.</p>
+						</a>
+						<a href="#" class="list-group-item">
+							<h4 class="list-group-item-heading">All the Best!!</h4>
+							<p class="list-group-item-text">Click on the button below to being your exam. All the best
+								!!</p>
+						</a>
+					</div>
+					<div>
+						<button class="btn btn-success" onclick="getQuetionPaper()">Start the test!</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<img class="img-responsive" src="images/kids.png" />
+			</div>
+		</div>
+	</div>
+	<div class="container" id="loadingPanel" style="display:none">
+		
+	</div>
+	<div class="container" id="examPanel" style="display:none;">
+		<div class="row">
+			<div class="col-sm-1">
+				<h3></h3>
+			</div>
+			<div class="col-sm-10">
+				<h3 id="qheader">Loading questions...</h3>
+				<pre id="qdesc">please wait
+
+				</pre>
+				<div class="container" id="qoptions">
+
+				</div>
+				<div class="col-sm-1">
+					<h3></h3>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-1">
+			</div>
+			<div class="col-sm-10">
+					<span>
+						<span id="pbc">
+						</span>
+						<span id="nbc">
+						</span>
+						<span>
+							&nbsp;&nbsp;
+						</span>
+						<span>
+							<button class="btn btn-warning" onclick="reviewQuiz()">Review</button>
+						</span>
+					</span>
+			</div>
+			<div class="col-sm-1">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				
+			</div>
+		</div>
+	</div>
+	<div class="container" id="goobyePanel" style="display:none;">
+		<div class="row">
+			<div class="col-sm-1">
+				<h3></h3>
+			</div>
+			<div class="col-sm-10">
+				<h3>You are done !!!</h3>
+				<p>
+				</p>
+				<hr/>
+				<div>
+
+				</div>
+				<div class="col-sm-1">
+					<h3></h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container" id="reviewPanel" style="display:none;">
+		<div class="row">
+			<div class="col-sm-1">
+				<h3></h3>
+			</div>
+			<div class="col-sm-10">
+				<h3 id="rheader">Review Questions and Submit</h3>
+				<p>Click on question number to go back and answer.<br/>
+				Submit if everything is answered.
+				</p>
+				<hr/>
+				<div class="container" id="roptions">
+
+				</div>
+				<div class="col-sm-1">
+					<h3></h3>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-1">
+			</div>
+			<div class="col-sm-10 text-center">
+					<hr/>
+					<span>
+						<span>
+							<button class="btn btn-primary" onclick="submitQuiz()">Submit Answers !</button>
+						</span>
+					</span>
+			</div>
+			<div class="col-sm-1">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				
+			</div>
+		</div>
+	</div>
+	</div>
+	<script language="javascript">
+
+		var qz = {};
+		var currentQIndex = 0;
+		$(document).ready(function () {
+			$("#examPanel").hide();
+		});
+
+
+		function getQuetionPaper() {
+
+			$.post({
+				url: "/getmyquiz",
+				data: {
+					userid: '<%=data.uid%>',
+					session: '<%=data.skey%>',
+				},
+				success: function (result) {
+					qz = JSON.parse(result);
+					pupulateQuestion(0, 0);
+				}
+			});
+			
+			$("#welcomePanel").hide();
+			//$("#bkgDiv").css("background-image", "url('images/que.png')");
+			$("#examPanel").show();
+		}
+
+		function captureAns(_indx) {
+			//update existing if any
+			if (document.all["qoptions"].innerHTML.toString().trim() != "") {
+				var pq = qz.questions[_indx];
+				//check qtype
+				//if check boxes 
+				var sels = "";
+				var ans = "";
+
+				var r = (document.all["qoptions"]).getElementsByTagName("input");
+				if ((pq.qtype == 1) || (pq.qtype == 2)) {
+					for (b = 0; b < r.length; b++) {
+						sels += ((sels.length > 0) ? "," : "");
+						sels += ((r[b].checked) ? "1" : "0");
+						if (r[b].checked) {
+							ans += ((ans.length > 0) ? "," : "");
+							ans += (r[b]).value;
+						}
+					}
+
+					if (sels.length > 0) {
+						pq.selections = sels;
+					}
+				}
+				else if (pq.qtype == 3) {
+					var t = document.getElementById("ftAns");
+					//it will be a textbox
+					ans = t.value;
+				}
+				if (ans.length > 0) {
+					pq.answers = ans;
+				}
+			}
+		}
+
+		function pupulateQuestion(prevIndex, newIndex) {
+		
+			captureAns(prevIndex);
+			//populate new one
+
+			if (qz.questions[newIndex]) {
+				var cq = qz.questions[newIndex];
+				document.all["qdesc"].innerHTML = cq.text;
+				document.all["qheader"].innerText = "Question " + (newIndex + 1) + " of " + qz.questions.length + " !";
+				//button bar
+				if (newIndex == 0) {
+					document.all["pbc"].innerHTML = "";
+					document.all["nbc"].innerHTML = "<button class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex + 1) + ")'>Next</button>";
+				}
+				else if (newIndex == (qz.questions.length - 1)) {
+					document.all["pbc"].innerHTML = "<button class='btn btn-primary' class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex - 1) + ")'>Prev</button>";
+					document.all["nbc"].innerHTML = "";
+				}
+				else {
+					document.all["pbc"].innerHTML = "<button class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex - 1) + ")'>Prev</button>";
+					document.all["nbc"].innerHTML = "<button class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex + 1) + ")'>Next</button>";
+				}
+
+				//set options panel
+				//alert(cq.qtype);
+				var strOpString = "";
+				if ((cq.qtype == 1) || (cq.qtype == 2)) {
+					if (cq.options && cq.options.toString().trim().length > 0) {
+						//alert("cq.options found");
+						//split and make 2 collections
+						var op = cq.options.toString().split(',');
+						var sl = cq.selections.split(',');
+
+						for (var a = 0; a < op.length; a++) {
+							//var s = op[a];
+							strOpString += '<div class="row"><div class="col-sm-2"></div><div class="col-sm-8">';
+							strOpString += '<label><input ' + ((cq.qtype == 1) ? 'type="radio"' : 'type="checkbox"') + 'name="answers" value="' + op[a] + '" ' + ((sl[a] == '1') ? 'checked' : '') + '/>' + op[a] + '</label></div><div class="col-sm-2"></div></div>';
+						}
+						//alert(strOpString);
+						document.all["qoptions"].innerHTML = strOpString;
+					}
+					else {
+						//alert("cq.options not found");
+						document.all["qoptions"].innerHTML = "";
+					}
+				}
+				else if (cq.qtype == 3) {
+
+					/*
+					<div class="form-group"><label for="comment">Type your answer:</label><textarea class="form-control" rows="5" id="ftAns"></textarea></div>
+					*/
+					document.all["qoptions"].innerHTML = '<div class="row"><div class="col-sm-1"></div><div class="col-sm-10"><div class="form-group"><label for="comment">Type your answer:</label><textarea class="form-control" rows="5" id="ftAns">' + ((cq.answers) ? cq.answers : '') + '</textarea></div></div><div class="col-sm-1"></div></div>';
+				}
+
+				currentQIndex = newIndex;
+			}
+		}
+
+		function submitQuiz() {
+			
+
+			$.post({
+				url: "/submitmyquiz",
+				data: qz,
+				success: function (result) {
+					//thank you message and div
+					//alert('Thank you');
+					$("#reviewPanel").hide();
+					$("#examPanel").hide();
+					$('#goobyePanel').show();
+				}
+			});
+
+		}
+
+        function reviewQuiz()
+		{
+			$("#examPanel").hide();
+			//get the curret state of q a
+			captureAns(currentQIndex);
+			//populate review panel
+			var rvTxt="<div class='row review'>";
+			    
+				for(var j=0;j<qz.questions.length;j++)
+				{
+					rvTxt+='<div class="col-sm-4">';
+					rvTxt+=("<br/><button class='btn "+ (((qz.questions[j].answers)&&(qz.questions[j].answers!=''))?"btn-info":"btn-warning") +"' onclick='goBackToExam(" + j + ")'>"+ "Question " + (j+1) + "<br/>" + (((qz.questions[j].answers)&&(qz.questions[j].answers!=''))?"Answered":"Not Answered") +"</button>");
+					
+					/*if (j == 0) {
+						 rvTxt+=("<div onclick='goBackToExam(" + j + ")'>"+ "Question " + (j+1) + "<br/>" + (((qz.questions[j].answers)&&(qz.questions[j].answers!=''))?"Answered":"Not Answered") +"</div>");
+					}
+					else if (j == (qz.questions.length - 1)) {
+						rvTxt+=("<div onclick='goBackToExam(" + j + ")'>"+ "Question " + (j+1) + "<br/>" + (((qz.questions[j].answers)&&(qz.questions[j].answers!=''))?"Answered":"Not Answered") +"</div>");
+					}
+					else {
+						rvTxt+=("<div onclick='goBackToExam(" + j + ")'>"+ "Question " + (j+1) + "<br/>" + (((qz.questions[j].answers)&&(qz.questions[j].answers!=''))?"Answered":"Not Answered") +"</div>");
+					}
+					*/
+					rvTxt+="</div>";
+				}
+				rvTxt+="</div>";
+				$("#roptions").html(rvTxt);
+			$("#reviewPanel").show();
+		}
+
+		function goBackToExam(_idx)
+		{
+			
+			$("#reviewPanel").hide();
+			$("#roptions").html('');
+			if(_idx==0)
+			{
+			//alert(1);
+				pupulateQuestion(0,0);
+			}
+			else 
+			{
+				pupulateQuestion(_idx-1,_idx);
+			}
+			
+			$("#examPanel").show();
+
+		}
+
+	</script>
+</body>
+</html>

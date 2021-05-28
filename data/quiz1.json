@@ -1,0 +1,58 @@
+{
+	"quiztaker":{
+		"userid":0,
+		"userFullName":"",
+		"exam_started_on":"",
+		"exam_ended_on":"",
+		"reviewed_by":"",
+		"review_ended_on":"",
+		"total_score":""
+	},
+	"id": 1,
+	"title": "The Inside Story",
+	"description": "Matt Armstrong Quiz",
+	"meta_tags": ["Matt", "Armstrong"],
+	"difficulty": "17",
+	"allowed_exam_time": 300,
+	"questions": [{
+		"questionId" : 1,
+		"qtype" : 1,
+		"text": "Who was youngest son of Raja Dashrath?",
+		"options": "Ram, Laxman,Shatrughna,Bharat,Hanuman",
+		"selections": "",
+		"points": 0,
+		"answer_text": "",
+		"is_correct_answer" : "",
+		"allowed_time_sec" : 30
+	}, {
+		"questionId" : 2,
+		"qtype" : 2,
+		"text": "Who all are wives of king Dasharath?",
+		"options": "Kaikeyee, Gandhari, Sumitra ,Kausalya,Radha",
+		"selections": "",
+		"points": 0,
+		"answer_text": "",
+		"is_correct_answer" : "",
+		"allowed_time_sec" : 30
+	}, {
+		"questionId" : 3,
+		"qtype" : 1,
+		"text": "How many years did Ram left for vanavas?",
+		"options": "12, 10,14,15,18",
+		"selections": "",
+		"points": 0,
+		"answer_text": "",
+		"is_correct_answer" : "",
+		"allowed_time_sec" : 30
+	}, {
+		"questionId" : 4,
+		"qtype" : 3,
+		"text": "What did kaikeyee ask for, to invoke two boons given to her?",
+		"options": "",
+		"selections": "",
+		"points": 0,
+		"answer_text": "",
+		"is_correct_answer" : "",
+		"allowed_time_sec" : 30
+	}]
+}

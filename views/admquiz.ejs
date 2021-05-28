@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>KBRE</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+	<div class="jumbotron text-center">
+		<h3>Welcome to KBRE exam admin portal, <%=data.name%> !</h3>
+	</div>
+	<div id=bkgDiv">
+		<div class="container text-center" id="welcomePanel">
+			<div class="row">
+				<div class="col-sm-2">
+				</div>
+				<div class="col-sm-8">
+					<div>
+						<div class="text-center">
+							<h3>Students exam status</h3>
+						</div>
+						<div id="usrDiv">
+							
+						</div>
+
+						<div>
+							<button class="btn btn-success" onclick="getUserStats()">Refresh Data</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="myModal" role="dialog" data-backdrop="static">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Modal Header</h4>
+					</div>
+					<div class="modal-body">
+						<div id="qrDiv"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn" onclick="submitQuizReview();">Mark Review Complete</button>
+						<button type="button" class="btn" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container" id="loadingPanel" style="display:none">
+
+		</div>
+		<div class="container" id="examPanel" style="display:none;">
+			<div class="row">
+				<div class="col-sm-1">
+					<h3></h3>
+				</div>
+				<div class="col-sm-10">
+					<h3 id="qheader">Loading questions...</h3>
+					<pre id="qdesc">please wait
+
+				</pre>
+					<div class="container" id="qoptions">
+
+					</div>
+					<div class="col-sm-1">
+						<h3></h3>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-1">
+				</div>
+				<div class="col-sm-10">
+					<span>
+						<span id="pbc">
+						</span>
+						<span id="nbc">
+						</span>
+						<span>
+							&nbsp;&nbsp;
+						</span>
+						<span>
+							<button class="btn btn-warning" onclick="submitQuizReview()">Review</button>
+						</span>
+					</span>
+				</div>
+				<div class="col-sm-1">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<script language="javascript">
+
+		var qz = {};
+		var user;
+		var currentQIndex = 0;
+		$(document).ready(function () {
+			$("#examPanel").hide();
+			getUserStats();
+		});
+
+		function getUserStats(){
+			$.post({
+				url: "/getuserstat",
+				data: {
+					userid: '<%=data.uid%>',
+					session: '<%=data.skey%>',
+				},
+				success: function (result) {
+					//alert(result);
+					user = JSON.parse(result);
+					//alert(qz);
+					pupulateUserStats();
+				}
+			});
+		}
+
+		function pupulateUserStats()
+		{
+		//alert(1);
+			var userForm="<table class='table table-striped'><tr><th>Name</th><th>AgeGroup</th><th>Status</th><th>&nbsp</th><th>Points</th></tr>";
+			for(var s=0;s<user.length;s++)
+			{
+				userForm+="<tr><td>"+user[s].name+"</td><td>"+user[s].age_group+"</td><td>"+user[s].exam_status+"</td><td>"+ ((user[s].exam_status=="Appeared")?"<button class='btn' onclick=\"getQuetionPaperForReview('"+user[s].userid+"')\">Review</button>":"") + "</td><td>"+((user[s].totalpoints)?user[s].totalpoints:"")+"</td></tr>";
+			}
+			userForm+="</table>";
+			//alert(userForm);
+			$("#usrDiv").html(userForm);
+		}
+
+		function getQuetionPaperForReview(studid) {
+
+			$.post({
+				url: "/getanswersheet",
+				data: {
+					userid: '<%=data.uid%>',
+					session: '<%=data.skey%>',
+					qpid: studid,
+				},
+				success: function (result) {
+					qz = JSON.parse(result);
+					//alert(qz);
+					pupulateQuestionsForReview();
+				}
+			});
+			$('#myModal').modal('show');
+		}
+
+		function capturePoints() {
+			
+			for(var t=0;t<qz.questions.length;t++)
+			{
+				if(($("#ip"+t).val() && $("#ip"+t).val() != ""))
+				{
+					qz.questions[t].points=$("#ip"+t).val();
+				}
+				//queForm+="<tr><td>"+(s+1)+"</td><td>"+qz.questions[s].text+"</td><td>"+qz.questions[s].answers+"</td><td><input type='text' id='points_for_"+(s)+"'/></td></tr>";
+			}
+			//alert(1);
+			
+		}
+
+		function pupulateQuestionsForReview() {
+			var queForm="<table><tr><th>Que#</th><th>Question</th><th>Answer/s</th><th>Points</th></tr>";
+			for(var s=0;s<qz.questions.length;s++)
+			{
+				queForm+="<tr><td>"+(s+1)+"</td><td>"+qz.questions[s].text+"</td><td>"+qz.questions[s].answers+"</td><td><input type='text' id='ip"+(s)+"' value=''></input></td></tr>";
+			}
+			queForm+="</table>";
+			$("#qrDiv").html(queForm);
+
+			/*
+			if (qz.questions[newIndex]) {
+				var cq = qz.questions[newIndex];
+				document.all["qdesc"].innerHTML = cq.text;
+				document.all["qheader"].innerText = "Question " + (newIndex + 1) + " of " + qz.questions.length + " !";
+				//button bar
+				if (newIndex == 0) {
+					document.all["pbc"].innerHTML = "";
+					document.all["nbc"].innerHTML = "<button class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex + 1) + ")'>Next</button>";
+				}
+				else if (newIndex == (qz.questions.length - 1)) {
+					document.all["pbc"].innerHTML = "<button class='btn btn-primary' class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex - 1) + ")'>Prev</button>";
+					document.all["nbc"].innerHTML = "";
+				}
+				else {
+					document.all["pbc"].innerHTML = "<button class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex - 1) + ")'>Prev</button>";
+					document.all["nbc"].innerHTML = "<button class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex + 1) + ")'>Next</button>";
+				}
+
+				//set options panel
+				//alert(cq.qtype);
+				var strOpString = "";
+				if ((cq.qtype == 1) || (cq.qtype == 2)) {
+					if (cq.options && cq.options.toString().trim().length > 0) {
+						//alert("cq.options found");
+						//split and make 2 collections
+						var op = cq.options.toString().split(',');
+						var sl = cq.selections.split(',');
+
+						for (var a = 0; a < op.length; a++) {
+							//var s = op[a];
+							strOpString += '<div class="row"><div class="col-sm-2"></div><div class="col-sm-8">';
+							strOpString += '<label><input ' + ((cq.qtype == 1) ? 'type="radio"' : 'type="checkbox"') + 'name="answers" value="' + op[a] + '" ' + ((sl[a] == '1') ? 'checked' : '') + '/>' + op[a] + '</label></div><div class="col-sm-2"></div></div>';
+						}
+						//alert(strOpString);
+						document.all["qoptions"].innerHTML = strOpString;
+					}
+					else {
+						//alert("cq.options not found");
+						document.all["qoptions"].innerHTML = "";
+					}
+				}
+				else if (cq.qtype == 3) {
+
+					document.all["qoptions"].innerHTML = '<div class="row"><div class="col-sm-1"></div><div class="col-sm-10"><div class="form-group"><label for="comment">Type your answer:</label><textarea class="form-control" rows="5" id="ftAns">' + ((cq.answers) ? cq.answers : '') + '</textarea></div></div><div class="col-sm-1"></div></div>';
+				}
+
+				currentQIndex = newIndex;
+			}*/
+		}
+
+		function getPointTotal()
+		{
+			var tp=0;
+			for(var u=0;u<qz.questions.length;u++)
+			{
+				if(qz.questions[u].points!="")
+				{
+					tp+=parseInt(qz.questions[u].points);
+				}
+				//queForm+="<tr><td>"+(s+1)+"</td><td>"+qz.questions[s].text+"</td><td>"+qz.questions[s].answer_text+"</td><td><input type='text' id='points_for_"+(s)+"'/></td></tr>";
+			}
+			//alert(tp);
+			return tp;
+		}
+
+		function submitQuizReview() {
+			//get the curret state of q a
+			capturePoints(currentQIndex);
+			
+			qz.quiztaker.reviewed_by="<%=data.uid%>";
+			//quiztaker.review_ended_on":""
+			qz.quiztaker.total_score=getPointTotal();
+			$.post({
+				url: "/saveanswersheet",
+				data: qz,
+				success: function (result) {
+					//thank you message and div
+					//alert('Thank you');
+					$('#myModal').modal('hide');
+					getUserStats();
+				}
+			});
+
+		}
+
+	</script>
+</body>
+
+</html>

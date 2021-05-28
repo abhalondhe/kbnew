@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <title>KBRE</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+  
+<body>
+<div class="text-center">
+		<div class="row" >
+			<div class="col-sm-1">
+			</div>
+			<div class="col-sm-10">
+			<img class="img-responsive" src="images/ram.jpg"/>
+			</div>
+			<div class="col-sm-1">
+			</div>
+		</div>
+	
+</div>
+	<hr/>
+	<div class="container text-center">
+		<%if(userNotFound){%>
+		<div class="row" >
+			<div class="col-sm-2">
+			</div>
+			<div class="col-sm-8">
+			    <div class="panel panel-danger">
+				  <div class="panel-heading"><h3>Incorrect Credentials</h3></div>
+				  <div class="panel-body">
+				<h5>Student Id and/or Password is incorrect, try again,<br/> if you believe the details are correct, Contact administrator.</h5>
+				</div>
+				</div>
+			</div>
+			<div class="col-sm-2">
+			</div>
+		</div>
+		<%}%>
+		<div class="row" >
+			<div class="col-sm-2">
+			</div>
+			<div class="col-sm-8">
+				    <div class="panel panel-info">
+						  <div class="panel-heading"><h1>Final Exam Login</h1></div>
+						  <div class="panel-body">
+						  <form class="form-horizontal" method="post">
+							  <div class="form-group">
+								<label class="control-label col-sm-2" for="uid">UserId:</label>
+								<div class="col-sm-10">
+								  <input type="text" class="form-control" id="uid" name="uid" placeholder="Enter your login id">
+								</div>
+							  </div>
+							  <div class="form-group">
+								<label class="control-label col-sm-2" for="lkey">Password:</label>
+								<div class="col-sm-10">
+								  <input type="password" class="form-control" id="lkey" name="lkey" placeholder="Enter password">
+								</div>
+							  </div>
+							  <div class="form-group">
+								<div class="col-sm-offset-1 col-sm-10">
+								  <button type="submit" class="btn btn-default" id="bSubmit">Submit</button>
+								</div>
+							  </div>
+							</form>
+							</div>
+						</div>
+			</div>
+			<div class="col-sm-2">
+			</div>
+		</div>
+	</div>
+	
+
+
+
+	<br/>
+
+	
+</body>
+  
+</html>    
