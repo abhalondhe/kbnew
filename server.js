@@ -226,8 +226,9 @@ app.post('/saveanswersheet', (req, res)=>{
          Body: JSON.stringify(req.body)
      };
      s3.upload(params, function(s3Err, data) {
-         if (s3Err) throw s3Err
-         console.log(`File uploaded successfully at ${data.Location}`)
+         if(err) console.log(err, err.stack); // an error occurred
+   	 else     console.log(data);           // successful response
+         //console.log(`File uploaded successfully at ${data.Location}`)
      });
   res.send("Saved successfully!");
   
