@@ -133,10 +133,10 @@
 		function pupulateUserStats()
 		{
 		//alert(1);
-			var userForm="<table class='table table-striped'><tr><th>Name</th><th>AgeGroup</th><th>Status</th><th>&nbsp</th><th>Points</th></tr>";
+			var userForm="<table class='table table-striped'><tr><th>Name</th><th>AgeGroup</th><th>Status</th><th>&nbsp</th><th>Points</th><th>Time Taken</th></tr>";
 			for(var s=0;s<user.length;s++)
 			{
-				userForm+="<tr><td>"+user[s].name+"</td><td>"+user[s].age_group+"</td><td>"+user[s].exam_status+"</td><td>"+ ((user[s].exam_status=="Appeared")?"<button class='btn' onclick=\"getQuetionPaperForReview('"+user[s].userid+"')\">Review</button>":"") + "</td><td>"+((user[s].totalpoints)?user[s].totalpoints:"")+"</td></tr>";
+				userForm+="<tr><td>"+user[s].userid+"</td><td>"+user[s].age_group+"</td><td>"+user[s].exam_status+"</td><td>"+ ((user[s].exam_status=="Appeared")?"<button class='btn' onclick=\"getQuetionPaperForReview('"+user[s].userid+"')\">Review</button>":"") + "</td><td>"+((user[s].totalpoints)?user[s].totalpoints:"")+"</td><td>"+((user[s].totalpoints)?user[s].timetaken:"")+"</td></tr>";
 			}
 			userForm+="</table>";
 			//alert(userForm);
@@ -177,7 +177,7 @@
 
 		function pupulateQuestionsForReview() {
 		
-			$("#reviewHeader").text("Review Answers by - " + qz.quiztaker.userFullName);
+			$("#reviewHeader").text("Review Answers by - " + qz.quiztaker.userid);
 			var queForm="<table class='table table-bordered'><thead><tr><th class='col-sm-1'>Que#</th><th class='col-sm-6'>Question</th><th class='col-sm-3'>Answer/s</th><th class='col-sm-1'>Max points</th><th class='col-sm-1'>Points</th></tr><thead>";
 			for(var s=0;s<qz.questions.length;s++)
 			{
