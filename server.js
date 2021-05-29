@@ -10,6 +10,12 @@ var fs = require('fs');
 //var upload = multer();
 var path = require('path');
 var path = require('ejs');
+var AWS = require('aws-sdk');
+
+var s3 = new AWS.S3({
+    accessKeyId: 'AKIAVVH2KSB72PLJPBTJ',
+    secretAccessKey: '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'
+});
 var app = express();
 
 app.use("/images", express.static('images'));
@@ -212,6 +218,17 @@ app.post('/saveanswersheet', (req, res)=>{
 	  if (err) throw err;
 	  console.log('user.json Updated!');
   });
+    
+  var filename='/kbre/reviewedqa/'+req.body.quiztaker.userid+'_quiz.json'
+       const params = {
+         Bucket: 'chaanakya', // pass your bucket name
+         Key: filename, // file will be saved as testBucket/contacts.csv
+         Body: JSON.stringify(req.body)
+     };
+     s3.upload(params, function(s3Err, data) {
+         if (s3Err) throw s3Err
+         console.log(`File uploaded successfully at ${data.Location}`)
+     });
   res.send("Saved successfully!");
   
 });
