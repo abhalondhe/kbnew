@@ -6,23 +6,13 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-//var multer = require('multer');
-//var upload = multer();
 var path = require('path');
 var path = require('ejs');
 var app = express();
 
-// Set EJS as templating engine
-app.set('view engine', 'ejs');
-// for parsing application/json
 app.use(bodyParser.json()); 
-
-// for parsing application/xwww-
 app.use(bodyParser.urlencoded({ extended: true })); 
-//form-urlencoded
-
-// for parsing multipart/form-data
-//app.use(upload.array()); 
+app.set('view engine', 'ejs');
 
 var readUsers = fs.readFileSync("data/users.json", 'utf8');
 var readAdmins = fs.readFileSync("data/admins.json", 'utf8');
@@ -233,6 +223,8 @@ app.post('/submitmyquiz', (req, res)=>{
   res.send("Submitted successfully!");
 });
 
-var server = app.listen(4000, function(){
-    console.log('listining to port 4000')
+var server = app.listen(process.env.PORT || 4000, function() {
+  var host = server.address().address;
+  var port = server.address().port;
+  console.log('KBRE app listening at http://%s:%s', host, port);
 });
