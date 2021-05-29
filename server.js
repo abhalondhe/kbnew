@@ -219,7 +219,7 @@ app.post('/saveanswersheet', (req, res)=>{
 	  console.log('user.json Updated!');
   });
     
-  var filename='/kbre/reviewedqa/'+req.body.quiztaker.userid+'_quiz.json'
+  var filename='kbre/reviewedqa/'+req.body.quiztaker.userid+'_quiz.json'
        const params = {
          Bucket: 'chaanakya', // pass your bucket name
          Key: filename, // file will be saved as testBucket/contacts.csv
