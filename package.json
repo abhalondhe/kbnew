@@ -1,13 +1,14 @@
 {
-  "name": "chemistryquiz",
+  "name": "kbre",
   "version": "1.0.0",
-  "description": "nodeJS server for chemistry quiz",
+  "description": "nodeJS server for kbre quiz",
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.14.1",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
-    "fs": "0.0.2"
+    "fs": "0.0.2",
+    "aws-sdk": "^2.77.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,12 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/gzgracez/dynamicQuiz.git"
+    "url": "git+ssh://git@github.com/abhalondhe/kbnew.git"
   },
-  "author": "Grace Zhang",
+  "author": "Abha",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gzgracez/dynamicQuiz/issues"
+    "url": "https://github.com/abhalondhe/kbnew/issues"
   },
-  "homepage": "https://github.com/gzgracez/dynamicQuiz#readme"
+  "homepage": "https://github.com/abhalondhe/kbre2021"
 }
