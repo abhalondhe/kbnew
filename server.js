@@ -6,13 +6,29 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+//var multer = require('multer');
+//var upload = multer();
 var path = require('path');
 var path = require('ejs');
 var app = express();
 
-app.use(bodyParser.json()); 
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use("/images", express.static('images'));
+app.use("/js", express.static('js'));
+app.use("/static", express.static('static'));
+app.use("/static/images", express.static('static/images'));
+app.use("/static/js", express.static('static/js'));
+app.use("/static/css", express.static('static/css'));
+// Set EJS as templating engine
 app.set('view engine', 'ejs');
+// for parsing application/json
+app.use(bodyParser.json()); 
+
+// for parsing application/xwww-
+app.use(bodyParser.urlencoded({ extended: true })); 
+//form-urlencoded
+
+// for parsing multipart/form-data
+//app.use(upload.array()); 
 
 var readUsers = fs.readFileSync("data/users.json", 'utf8');
 var readAdmins = fs.readFileSync("data/admins.json", 'utf8');
