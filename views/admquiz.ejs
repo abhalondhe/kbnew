@@ -39,15 +39,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="myModal" role="dialog" data-backdrop="static">
+		<div class="modal fade"  id="myModal" role="dialog" data-backdrop="static">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Modal Header</h4>
+						<h4 id="reviewHeader" class="modal-title"></h4>
 					</div>
 					<div class="modal-body">
-						<div id="qrDiv"></div>
+						<div id="qrDiv" class="container-fluid"></div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn" onclick="submitQuizReview();">Mark Review Complete</button>
@@ -176,63 +176,15 @@
 		}
 
 		function pupulateQuestionsForReview() {
-			var queForm="<table><tr><th>Que#</th><th>Question</th><th>Answer/s</th><th>Points</th></tr>";
+		
+			$("#reviewHeader").text("Review Answers by - " + qz.quiztaker.userFullName);
+			var queForm="<table class='table table-bordered'><thead><tr><th class='col-sm-1'>Que#</th><th class='col-sm-6'>Question</th><th class='col-sm-3'>Answer/s</th><th class='col-sm-1'>Max points</th><th class='col-sm-1'>Points</th></tr><thead>";
 			for(var s=0;s<qz.questions.length;s++)
 			{
-				queForm+="<tr><td>"+(s+1)+"</td><td>"+qz.questions[s].text+"</td><td>"+qz.questions[s].answers+"</td><td><input type='text' id='ip"+(s)+"' value=''></input></td></tr>";
+				queForm+="<tr><td>"+(s+1)+"</td><td>"+qz.questions[s].text+"</td><td>"+((qz.questions[s].answers)?qz.questions[s].answers:"<font color='red'><b>Not Answered!</b></font>")+"</td><td>"+qz.questions[s].q_points+"</td><td><input type='text' id='ip"+(s)+"' value=''></input></td></tr>";
 			}
 			queForm+="</table>";
 			$("#qrDiv").html(queForm);
-
-			/*
-			if (qz.questions[newIndex]) {
-				var cq = qz.questions[newIndex];
-				document.all["qdesc"].innerHTML = cq.text;
-				document.all["qheader"].innerText = "Question " + (newIndex + 1) + " of " + qz.questions.length + " !";
-				//button bar
-				if (newIndex == 0) {
-					document.all["pbc"].innerHTML = "";
-					document.all["nbc"].innerHTML = "<button class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex + 1) + ")'>Next</button>";
-				}
-				else if (newIndex == (qz.questions.length - 1)) {
-					document.all["pbc"].innerHTML = "<button class='btn btn-primary' class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex - 1) + ")'>Prev</button>";
-					document.all["nbc"].innerHTML = "";
-				}
-				else {
-					document.all["pbc"].innerHTML = "<button class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex - 1) + ")'>Prev</button>";
-					document.all["nbc"].innerHTML = "<button class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex + 1) + ")'>Next</button>";
-				}
-
-				//set options panel
-				//alert(cq.qtype);
-				var strOpString = "";
-				if ((cq.qtype == 1) || (cq.qtype == 2)) {
-					if (cq.options && cq.options.toString().trim().length > 0) {
-						//alert("cq.options found");
-						//split and make 2 collections
-						var op = cq.options.toString().split(',');
-						var sl = cq.selections.split(',');
-
-						for (var a = 0; a < op.length; a++) {
-							//var s = op[a];
-							strOpString += '<div class="row"><div class="col-sm-2"></div><div class="col-sm-8">';
-							strOpString += '<label><input ' + ((cq.qtype == 1) ? 'type="radio"' : 'type="checkbox"') + 'name="answers" value="' + op[a] + '" ' + ((sl[a] == '1') ? 'checked' : '') + '/>' + op[a] + '</label></div><div class="col-sm-2"></div></div>';
-						}
-						//alert(strOpString);
-						document.all["qoptions"].innerHTML = strOpString;
-					}
-					else {
-						//alert("cq.options not found");
-						document.all["qoptions"].innerHTML = "";
-					}
-				}
-				else if (cq.qtype == 3) {
-
-					document.all["qoptions"].innerHTML = '<div class="row"><div class="col-sm-1"></div><div class="col-sm-10"><div class="form-group"><label for="comment">Type your answer:</label><textarea class="form-control" rows="5" id="ftAns">' + ((cq.answers) ? cq.answers : '') + '</textarea></div></div><div class="col-sm-1"></div></div>';
-				}
-
-				currentQIndex = newIndex;
-			}*/
 		}
 
 		function getPointTotal()
