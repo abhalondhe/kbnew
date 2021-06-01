@@ -184,7 +184,8 @@ app.post('/getanswersheet', (req, res)=>{
 //lookup req.body.id in our records
 //pull answersheet if exist
 //update answer
-
+  //var filename='kbre/user_ans/'+req.body.qpid+'_quiz.json';
+	
   var readQuiz = fs.readFileSync('user_ans/'+req.body.qpid+'_quiz.json', 'utf8');
   res.send(readQuiz);
 });
@@ -254,6 +255,19 @@ app.post('/submitmyquiz', (req, res)=>{
 	  if (err) throw err;
 	  console.log('Submitted answers saved at user_ans/'+req.body.quiztaker.userid+'_quiz.json!');
   });
+	
+  //save to s3
+  var filename='kbre/user_ans/'+req.body.quiztaker.userid+'_quiz.json'
+       const params = {
+         Bucket: 'chaanakya', // pass your bucket name
+         Key: filename, // file will be saved as testBucket/contacts.csv
+         Body: JSON.stringify(req.body)
+     };
+     s3.upload(params, function(s3Err, data) {
+         if(s3Err) console.log(s3Err, s3Err.stack); // an error occurred
+   	 else     console.log(data);           // successful response
+         //console.log(`File uploaded successfully at ${data.Location}`)
+     });
   res.send("Submitted successfully!");
 });
 
