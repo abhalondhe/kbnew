@@ -39,6 +39,32 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var readUsers = fs.readFileSync("data/users.json", 'utf8');
 var readAdmins = fs.readFileSync("data/admins.json", 'utf8');
 var userPapers=JSON.parse("{}");
+var params = {
+    Bucket: 'chaanakya'    
+};
+
+var allKeys = [];
+//listAllKeys();
+function listAllKeys() {
+    s3.listObjectsV2(params, function (err, data) {
+        if (err) {
+            console.log(err, err.stack); // an error occurred
+        } else {
+            var contents = data.Contents;
+            contents.forEach(function (content) {
+                allKeys.push(content.Key);
+            });
+
+            if (data.IsTruncated) {
+                params.ContinuationToken = data.NextContinuationToken;
+                console.log("get further list...");
+                listAllKeys();
+            } 
+
+        }
+    });
+}
+
 app.get('/images/:nm', (req, res)=>{
 	console.log(req.params.nm);
         res.send(fs.readFileSync("images/"+req.params.nm));
@@ -192,11 +218,13 @@ app.post('/getuserstat', (req, res)=>{
 	 
 var users = fs.readFileSync("data/users.json", 'utf8');
  var allusers = JSON.parse(users);
+	allKeys=[];
+		listAllKeys();
 for(var i=0;i<allusers.length;i++)
 {
 	let fExist=false;
 	try {
-		for(var m=0;m<userPapers.Contents.length;m++)
+		/*for(var m=0;m<userPapers.Contents.length;m++)
 		{
 			console.log(userPapers.Contents[m].Key);
 			var fl="kbre/user_ans/"+allusers[i].userid+"_quiz.json";
@@ -205,9 +233,10 @@ for(var i=0;i<allusers.length;i++)
 				fExist=true;
 				console.log("kbre/user_ans/"+allusers[i].userid+"_quiz.json found on s3");
 			}
-		}
+		}*/
+		
 	 // if (fs.existsSync("user_ans/"+allusers[i].userid+"_quiz.json")) {
-	 if (fExist) {
+	 if (allKeys["user_ans/"+allusers[i].userid+"_quiz.json"]) {
 		//file exists
 		allusers[i].exam_status="Appeared";
 	  }
