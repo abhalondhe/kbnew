@@ -161,7 +161,6 @@ var userPapers="";
 //check s3 location
  const params = {
         Bucket: 'chaanakya',
-	Key: 'kbre/user_ans/*',
   	MaxKeys: 200
  };
  s3.listObjectsV2(params, function(err, data) {
