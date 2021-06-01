@@ -8,6 +8,205 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<!--    <link rel="stylesheet" type="text/css" media="screen" href="css/stylesheet.css">
+    <script src="js/jquery.min.js"></script>
+	<script src="js/custom.js"></script>
+    <script src="js/modernizr.js"></script>
+    <link rel="stylesheet" href="css/custom.css">-->
+	   <style>
+      /* The heart of the matter */
+		.btn-matrix > .btn:nth-child(3n+4) {
+		  //clear: left;
+		  //margin-left: 0;
+		  
+		}
+		.btn-matrix > .btn:nth-child(n+4) {
+		  //margin-top: -1px;
+		}
+		.btn-matrix > .btn:first-child {
+		  //border-bottom-left-radius: 0;
+		}
+		.btn-matrix > .btn:nth-child(3) {
+		  //border-top-right-radius: 4px !important;
+		}
+		.btn-matrix > .btn:nth-last-child(3) {
+		  //border-bottom-left-radius: 4px !important;
+		}
+		.btn-matrix > .btn:last-child {
+		  //border-top-right-radius: 0;
+		}
+
+		/* Decorations */
+		.btn-matrix {
+		  margin: 20px;
+		  padding:4px;
+		}
+      .testbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 20px;
+      }
+      .qform {
+      width: 100%;
+      padding: 20px;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 0 20px 0 #095484; 
+      }
+	  .rform {
+      width: 100%;
+      padding: 20px;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 0 20px 0 #097784; 
+      }
+	  .byeform {
+      width: 100%;
+      padding: 20px;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 0 20px 0 #095554; 
+      }
+      .banner {
+      position: relative;
+      height: 80px;
+      //background-image: url("http://localhost:4000/images/ram.jpg");  
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      }
+      .banner::after {
+      content: "";
+      background-color: rgba(0, 0, 0, 0.1); 
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      }
+      .myfreetext {
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      }
+      .cmyfreetext {
+      width: calc(100% - 10px);
+      padding: 5px;
+      }
+      .item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder, a {
+      color: #095484;
+      }
+      .item input:hover, .item select:hover, .item textarea:hover {
+      border: 1px solid transparent;
+      box-shadow: 0 0 6px 0 #095484;
+      color: #095484;
+      }
+      .item {
+      position: relative;
+      margin: 10px 0;
+      }
+      .item i {
+      right: 2%;
+      top: 30px;
+      z-index: 1;
+      }
+      input[type=radio], input[type=checkbox]  {
+      display: none;
+      }
+      label.radio, label.check {
+      position: relative;
+      display: inline-block;
+      margin: 5px 20px 15px 0;
+      cursor: pointer;
+      }
+      .question span {
+      margin-left: 30px;
+      }
+      span.required {
+      margin-left: 0;
+      color: red;
+      }
+      .checkbox-item label {
+      margin: 5px 20px 10px 0;
+      }
+      label.radio:before, label.check:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      }
+      label.radio:before {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      border: 2px solid #095484;
+      }
+      label.check:before {
+      top: 2px;
+      width: 16px;
+      height: 16px;
+      border-radius: 2px;
+      border: 1px solid #095484;
+      }
+      input[type=checkbox]:checked + .check:before {
+      background: #095484;
+      }
+      label.radio:after {
+      left: 5px;
+      border: 3px solid #095484;
+      }
+      label.check:after {
+      left: 4px;
+      border: 3px solid #fff;
+      }
+      label.radio:after, label.check:after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      width: 8px;
+      height: 4px;
+      background: transparent;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+      opacity: 0;
+      }
+      input[type=radio]:checked + label:after, input[type=checkbox]:checked + label:after {
+      opacity: 1;
+      }
+      .btn-block {
+      margin-top: 10px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px; 
+      background: #095484;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background: #0666a3;
+      }
+      @media (min-width: 568px) {
+      .city-item {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      }
+      .city-item input {
+      width: calc(50% - 20px);
+      }
+      .city-item select {
+      width: calc(50% - 8px);
+      }
+      }
+    </style>
+
 </head>
 
 <body>
@@ -48,6 +247,12 @@
 					</div>
 					<div>
 						<button class="btn btn-success" onclick="getQuetionPaper()">Start the test!</button>
+						<!--<form class="form-horizontal" method="post" action="/getsinglepagequiz">
+								  <input type="hidden" id="uid" name="uid" value="<%=data.uid%>" />
+								  <input type="hidden" id="skey" name="skey" value="<%=data.skey%>" />
+								  <button type="submit" class="btn btn-success" id="bSubmit">Get Paper!</button>
+							</form>-->
+							
 					</div>
 				</div>
 			</div>
@@ -60,11 +265,12 @@
 		
 	</div>
 	<div class="container" id="examPanel" style="display:none;">
+	<div class="qform">
 		<div class="row">
 			<div class="col-sm-1">
 				<h3></h3>
 			</div>
-			<div class="col-sm-10">
+			<div class="col-sm-10" id="divQuestion">
 				<h3 id="qheader">Loading questions...</h3>
 				<pre id="qdesc">please wait
 
@@ -81,18 +287,11 @@
 			<div class="col-sm-1">
 			</div>
 			<div class="col-sm-10">
-					<span>
-						<span id="pbc">
-						</span>
-						<span id="nbc">
-						</span>
-						<span>
-							&nbsp;&nbsp;
-						</span>
-						<span>
-							<button class="btn btn-warning" onclick="reviewQuiz()">Review</button>
-						</span>
-					</span>
+				<div class="tex-center">
+				  <span id="pbc"></span>
+				  <span id="nbc"></span>
+				  <button class="btn btn-warning" onclick="reviewQuiz()">Review & Submit!</button>
+				</div>
 			</div>
 			<div class="col-sm-1">
 			</div>
@@ -102,15 +301,18 @@
 				
 			</div>
 		</div>
+		</div>
 	</div>
 	<div class="container" id="goobyePanel" style="display:none;">
+		<div class="byeform text-center">
 		<div class="row">
 			<div class="col-sm-1">
 				<h3></h3>
 			</div>
 			<div class="col-sm-10">
-				<h3>You are done !!!</h3>
+				<h3>Awesome job ! You are done !!!</h3>
 				<p>
+					Enjoy your holidays..
 				</p>
 				<hr/>
 				<div>
@@ -121,24 +323,24 @@
 				</div>
 			</div>
 		</div>
+		</div>
 	</div>
 	<div class="container" id="reviewPanel" style="display:none;">
+	<div class="rform text-center">
 		<div class="row">
-			<div class="col-sm-1">
-				<h3></h3>
+			<div class="col-sm-2">
 			</div>
-			<div class="col-sm-10">
+			<div class="col-sm-8">
 				<h3 id="rheader">Review Questions and Submit</h3>
 				<p>Click on question number to go back and answer.<br/>
 				Submit if everything is answered.
 				</p>
 				<hr/>
-				<div class="container" id="roptions">
+				<div id="roptions">
 
 				</div>
-				<div class="col-sm-1">
-					<h3></h3>
-				</div>
+			</div>
+			<div class="col-sm-2">
 			</div>
 		</div>
 		<div class="row">
@@ -159,6 +361,7 @@
 			<div class="col-sm-12">
 				
 			</div>
+		</div>
 		</div>
 	</div>
 	</div>
@@ -190,16 +393,31 @@
 			$("#examPanel").show();
 		}
 
+		function getQuetionPaperFull()
+		{
+			$.post({
+				url: "/getsinglepagequiz",
+				data: {
+					userid: '<%=data.uid%>',
+					session: '<%=data.skey%>',
+				},
+				success: function (result) {
+					//qz = JSON.parse(result);
+					//pupulateQuestion(0, 0);
+				}
+			});
+		}
+
 		function captureAns(_indx) {
 			//update existing if any
-			if (document.all["qoptions"].innerHTML.toString().trim() != "") {
+			if (document.all["mainQuestion"]) {
 				var pq = qz.questions[_indx];
 				//check qtype
 				//if check boxes 
 				var sels = "";
 				var ans = "";
 
-				var r = (document.all["qoptions"]).getElementsByTagName("input");
+				var r = (document.all["mainQuestion"]).getElementsByTagName("input");
 				if ((pq.qtype == 1) || (pq.qtype == 2)) {
 					for (b = 0; b < r.length; b++) {
 						sels += ((sels.length > 0) ? "," : "");
@@ -215,7 +433,12 @@
 					}
 				}
 				else if (pq.qtype == 3) {
-					var t = document.getElementById("ftAns");
+					var t = document.getElementById("q-"+_indx+"ftAns");
+					//it will be a textbox
+					ans = t.value;
+				}
+				else if (pq.qtype == 5) {
+					var t = document.getElementById("q-"+_indx+"ftAns");
 					//it will be a textbox
 					ans = t.value;
 				}
@@ -232,16 +455,16 @@
 
 			if (qz.questions[newIndex]) {
 				var cq = qz.questions[newIndex];
-				document.all["qdesc"].innerHTML = cq.text;
-				document.all["qheader"].innerText = "Question " + (newIndex + 1) + " of " + qz.questions.length + " !";
+				////document.all["qdesc"].innerHTML = cq.text;
+				////document.all["qheader"].innerText = "Question " + (newIndex + 1) + " of " + qz.questions.length + " !";
 				//button bar
 				if (newIndex == 0) {
-					document.all["pbc"].innerHTML = "";
+					document.all["pbc"].innerHTML = "<button class='btn btn-default' class='btn btn-primary' disabled>Prev</button>";
 					document.all["nbc"].innerHTML = "<button class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex + 1) + ")'>Next</button>";
 				}
 				else if (newIndex == (qz.questions.length - 1)) {
 					document.all["pbc"].innerHTML = "<button class='btn btn-primary' class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex - 1) + ")'>Prev</button>";
-					document.all["nbc"].innerHTML = "";
+					document.all["nbc"].innerHTML = "<button class='btn btn-default' disabled>Next</button>";
 				}
 				else {
 					document.all["pbc"].innerHTML = "<button class='btn btn-primary' onclick='pupulateQuestion(" + newIndex + "," + (newIndex - 1) + ")'>Prev</button>";
@@ -250,6 +473,7 @@
 
 				//set options panel
 				//alert(cq.qtype);
+				/*
 				var strOpString = "";
 				if ((cq.qtype == 1) || (cq.qtype == 2)) {
 					if (cq.options && cq.options.toString().trim().length > 0) {
@@ -273,18 +497,108 @@
 				}
 				else if (cq.qtype == 3) {
 
-					/*
-					<div class="form-group"><label for="comment">Type your answer:</label><textarea class="form-control" rows="5" id="ftAns"></textarea></div>
-					*/
 					document.all["qoptions"].innerHTML = '<div class="row"><div class="col-sm-1"></div><div class="col-sm-10"><div class="form-group"><label for="comment">Type your answer:</label><textarea class="form-control" rows="5" id="ftAns">' + ((cq.answers) ? cq.answers : '') + '</textarea></div></div><div class="col-sm-1"></div></div>';
+				}*/
+			//alert(qz.questions[i].qtype);
+				
+				//alert(JSON.stringify(cq));
+				var qstr="";
+				var i=newIndex;
+				
+				qstr+='<div class="question" id="mainQuestion">';
+				qstr+='<span><div><b>Question '+(newIndex+1)+' of '+qz.questions.length+'!&nbsp;&nbsp;&nbsp;&nbsp;</b><small>('+cq.q_points+'&nbsp;&nbsp;point&nbsp;weight)</small></div></span></br/>';
+				
+				var questionText=cq.text;
+				if(cq.qtype==5)
+				{
+				
+					var t='&nbsp;&nbsp;<input style="width:150px;" type="text" id="'+('q-'+i+'ftAns')+'" value="'+ ((cq.answers)?cq.answers:'') +'"/>&nbsp;&nbsp;<br/>';
+					//alert(t);
+					questionText=questionText.replace('___',t);
 				}
-
+				else
+				{
+				}
+				qstr+='	 <p>' + questionText + '</p>';
+				
+				if(cq.hint)
+				{
+					qstr+='	<h5>'+cq.hint+'<span class="required">*</span></h5>';
+				}
+				else
+				{
+					if(cq.qtype==1)
+					{
+						qstr+='	<h5>Choose one from below<span class="required">*</span></h5>';
+					}
+					else if(cq.qtype==2)
+					{
+						qstr+='	<h5>Choose all correct answers<span class="required">*</span></h5>';
+					}
+					else if(cq.qtype==3)
+					{
+						qstr+='	<h5>Answer in box below<span class="required">*</span></h5>';
+					}
+					else if(cq.qtype==4)
+					{
+						qstr+='	<h5>Answer in area below<span class="required">*</span></h5>';
+					}
+				}
+				qstr+='	<div class="question-answer" id="qoptions">';
+				if((cq.qtype==1)||(cq.qtype==2))
+				{
+					
+					if (cq.options && cq.options.toString().trim().length > 0) 
+					{
+						//alert("cq.options found");
+						//split and make 2 collections
+						var op = cq.options.toString().split(',');
+						var sl = cq.selections.split(',');
+						for(var j=0;j<op.length;j++)
+						{
+							qstr+='	<div><input '+((cq.qtype == 1)?'type="radio"':'type="checkbox"')+'" value="none" '+((cq.qtype == 1) ? ('id="q-'+i+'_r-'+j+'" name="q-'+i+'_answers"') : ('id="q-'+i+'_c-'+j+'" name="q-'+i+'_answers"'))+  +' value="'+op[j]+'" '+((sl[j] == '1') ? 'checked' : '')+' />';
+							qstr+='		<label for="'+((cq.qtype == 1)?('q-'+i+'_r-'+j):('q-'+i+'_c-'+j))+'" '+((cq.qtype == 1) ? 'class="radio"' : 'class="check"')+'><span>'+op[j]+'</span></label>';
+							qstr+='	</div>';
+						}
+					}
+					else
+					{
+						//do nothing
+					}
+				}
+				else if(cq.qtype==3)
+				{
+					qstr+='            <div class="question-answer">';
+					qstr+='						<div>';
+					qstr+='							<textarea rows="5" style="margin: 0px; width: 600px;" id="'+('q-'+i+'ftAns')+'">'+ ((cq.answers) ? cq.answers : '') +'</textarea>';
+					qstr+='						</div>';
+					qstr+='					</div>';
+				}
+				else if(cq.qtype==4)
+				{
+					qstr+='            <div class="question-answer">';
+					qstr+='						<div>';
+					qstr+='							<textarea style="width=300px" rows="5" id="'+('q-'+i+'ftAns')+'">'+ ((cq.answers) ? cq.answers : '') +'</textarea>';
+					qstr+='						</div>';
+					qstr+='					</div>';
+				}
+				else if(cq.qtype==5)
+				{
+					//already handled in question text inline
+					//fill in the blank type
+				}
+				qstr+='	</div>';
+				qstr+='</div>';
+				
+				//append to main
+				$("#divQuestion").html(qstr);
+				
 				currentQIndex = newIndex;
 			}
 		}
 
 		function submitQuiz() {
-			
+			//validate
 
 			$.post({
 				url: "/submitmyquiz",
@@ -306,24 +620,13 @@
 			//get the curret state of q a
 			captureAns(currentQIndex);
 			//populate review panel
-			var rvTxt="<div class='row review'>";
+			var rvTxt="<div class='btn-group btn-matrix'>";
 			    
 				for(var j=0;j<qz.questions.length;j++)
 				{
-					rvTxt+='<div class="col-sm-4">';
-					rvTxt+=("<br/><button class='btn "+ (((qz.questions[j].answers)&&(qz.questions[j].answers!=''))?"btn-info":"btn-warning") +"' onclick='goBackToExam(" + j + ")'>"+ "Question " + (j+1) + "<br/>" + (((qz.questions[j].answers)&&(qz.questions[j].answers!=''))?"Answered":"Not Answered") +"</button>");
-					
-					/*if (j == 0) {
-						 rvTxt+=("<div onclick='goBackToExam(" + j + ")'>"+ "Question " + (j+1) + "<br/>" + (((qz.questions[j].answers)&&(qz.questions[j].answers!=''))?"Answered":"Not Answered") +"</div>");
-					}
-					else if (j == (qz.questions.length - 1)) {
-						rvTxt+=("<div onclick='goBackToExam(" + j + ")'>"+ "Question " + (j+1) + "<br/>" + (((qz.questions[j].answers)&&(qz.questions[j].answers!=''))?"Answered":"Not Answered") +"</div>");
-					}
-					else {
-						rvTxt+=("<div onclick='goBackToExam(" + j + ")'>"+ "Question " + (j+1) + "<br/>" + (((qz.questions[j].answers)&&(qz.questions[j].answers!=''))?"Answered":"Not Answered") +"</div>");
-					}
-					*/
-					rvTxt+="</div>";
+					//rvTxt+='<div style="padding:4px">';
+					rvTxt+=("<button class='btn "+ (((qz.questions[j].answers)&&(qz.questions[j].answers!=''))?"btn-info":"btn-warning") +"' onclick='goBackToExam(" + j + ")'>"+ "Question " + (j+1) + "<br/>" + (((qz.questions[j].answers)&&(qz.questions[j].answers!=''))?"Answered":"Not Answered") +"</button>");
+					//rvTxt+="</div>";
 				}
 				rvTxt+="</div>";
 				$("#roptions").html(rvTxt);
