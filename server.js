@@ -156,6 +156,20 @@ app.post('/getuserstat', (req, res)=>{
 //lookup req.body.id in our records
 //pull answersheet if exist
 //update answer
+var userPapers="";
+
+//check s3 location
+ const params = {
+        Bucket: 'chaanakya',
+  	MaxKeys: 200
+ };
+ s3.listObjectsV2(params, function(err, data) {
+   if (err) console.log(err, err.stack); // an error occurred
+   else{
+	   console.log(data); 
+	   userPapers = data;
+   }
+	 
 var users = fs.readFileSync("data/users.json", 'utf8');
  var allusers = JSON.parse(users);
 for(var i=0;i<allusers.length;i++)
