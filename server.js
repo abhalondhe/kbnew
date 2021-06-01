@@ -197,7 +197,8 @@ for(var i=0;i<allusers.length;i++)
 	try {
 		for(var m=0;m<userPapers.Contents.length;m++)
 		{
-			if(userPapers.Contents[m].Key=="kbre/user_ans/"+allusers[i].userid+"_quiz.json")
+			var fl="kbre/user_ans/"+allusers[i].userid+"_quiz.json";
+			if(userPapers.Contents[m].Key==fl)
 			{
 				fExist=true;
 				console.log("kbre/user_ans/"+allusers[i].userid+"_quiz.json found on s3");
@@ -213,6 +214,7 @@ for(var i=0;i<allusers.length;i++)
 		allusers[i].exam_status="Not Appeared";  
 	  }
 	} catch(err) {
+		console.log(err);
 		allusers[i].exam_status = "Unknown";
 	}
 }
