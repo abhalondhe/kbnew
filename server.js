@@ -113,7 +113,7 @@ var userNm = "";
   res.render('nquiz',{data:d});
   
 });
-
+/*
 function fileExist(fName, _data)
 {
 	
@@ -130,7 +130,7 @@ function fileExist(fName, _data)
 	
 	return e;
 }
-
+*/
 app.post('/admin', (req, res)=>{
    console.log(req.body);
 //lookup req.body.id in our records
@@ -193,9 +193,18 @@ var users = fs.readFileSync("data/users.json", 'utf8');
  var allusers = JSON.parse(users);
 for(var i=0;i<allusers.length;i++)
 {
+	let fExist=false;
 	try {
+		for(var m=0;m<userPapers.Contents.length;m++)
+		{
+			if(userPapers.Contents[m].Key=="kbre/user_ans/"+allusers[i].userid+"_quiz.json")
+			{
+				fExist=true;
+				console.log("kbre/user_ans/"+allusers[i].userid+"_quiz.json found on s3");
+			}
+		}
 	 // if (fs.existsSync("user_ans/"+allusers[i].userid+"_quiz.json")) {
-	 if (fileExist("kbre/user_ans/"+allusers[i].userid+"_quiz.json",userPapers.Contents)) {
+	 if (fExist) {
 		//file exists
 		allusers[i].exam_status="Appeared";
 	  }
