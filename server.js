@@ -220,6 +220,7 @@ var users = fs.readFileSync("data/users.json", 'utf8');
  var allusers = JSON.parse(users);
 	allKeys=[];
 		listAllKeys();
+	console.log(allKeys);
 for(var i=0;i<allusers.length;i++)
 {
 	let fExist=false;
