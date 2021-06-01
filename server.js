@@ -38,7 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var readUsers = fs.readFileSync("data/users.json", 'utf8');
 var readAdmins = fs.readFileSync("data/admins.json", 'utf8');
-var userPapers=JSON.parse("{}");
+var userPapers=[];
 var params = {
     Bucket: 'chaanakya'    
 };
@@ -212,15 +212,18 @@ app.post('/getuserstat', (req, res)=>{
    }
    else{
 	  // console.log(data.Contents); 
-	   userPapers = data;
+	   //userPapers = data;
+	   var contents = data.Contents;
+            contents.forEach(function (content) {
+                userPapers.push(content.Key);
+            });
    }
  });
 	 
 var users = fs.readFileSync("data/users.json", 'utf8');
  var allusers = JSON.parse(users);
-	allKeys=[];
-		listAllKeys();
-	console.log(allKeys);
+	
+	console.log(userPapers);
 for(var i=0;i<allusers.length;i++)
 {
 	let fExist=false;
