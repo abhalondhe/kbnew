@@ -38,6 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var readUsers = fs.readFileSync("data/users.json", 'utf8');
 var readAdmins = fs.readFileSync("data/admins.json", 'utf8');
+var userPapers=JSON.parse("{}");
 app.get('/images/:nm', (req, res)=>{
 	console.log(req.params.nm);
         res.send(fs.readFileSync("images/"+req.params.nm));
@@ -173,7 +174,7 @@ app.post('/getuserstat', (req, res)=>{
 //lookup req.body.id in our records
 //pull answersheet if exist
 //update answer
-var userPapers={};
+
 
 //check s3 location
  const params = {
@@ -184,7 +185,7 @@ var userPapers={};
    if(err){console.log(err, err.stack); // an error occurred
    }
    else{
-	   console.log(data.Contents); 
+	  // console.log(data.Contents); 
 	   userPapers = data;
    }
  });
@@ -197,6 +198,7 @@ for(var i=0;i<allusers.length;i++)
 	try {
 		for(var m=0;m<userPapers.Contents.length;m++)
 		{
+			console.log(userPapers.Contents[m].Key);
 			var fl="kbre/user_ans/"+allusers[i].userid+"_quiz.json";
 			if(userPapers.Contents[m].Key==fl)
 			{
