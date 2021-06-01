@@ -116,9 +116,11 @@ var userNm = "";
 
 function fileExist(fName, _data)
 {
+	
 	var e=false;
 	for(var i=0;i<_data.length;i++)
 	{
+		console.log(_data[i].Key);
 		if(_data[i].Key==fName)
 		{
 			e=true;
@@ -193,7 +195,7 @@ for(var i=0;i<allusers.length;i++)
 {
 	try {
 	 // if (fs.existsSync("user_ans/"+allusers[i].userid+"_quiz.json")) {
-	 if (fileExist("user_ans/"+allusers[i].userid+"_quiz.json",userPapers.Contents)) {
+	 if (fileExist("kbre/user_ans/"+allusers[i].userid+"_quiz.json",userPapers.Contents)) {
 		//file exists
 		allusers[i].exam_status="Appeared";
 	  }
