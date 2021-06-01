@@ -114,6 +114,21 @@ var userNm = "";
   
 });
 
+function fileExist(fName, _data)
+{
+	var e=false;
+	for(var i=0;i<_data.length;i++)
+	{
+		if(_data[i].Key==fName)
+		{
+			e=true;
+			console.log('File - '+fName+' found on s3');
+		}
+	}
+	
+	return e;
+}
+
 app.post('/admin', (req, res)=>{
    console.log(req.body);
 //lookup req.body.id in our records
@@ -156,7 +171,7 @@ app.post('/getuserstat', (req, res)=>{
 //lookup req.body.id in our records
 //pull answersheet if exist
 //update answer
-var userPapers="";
+var userPapers={};
 
 //check s3 location
  const params = {
@@ -177,7 +192,8 @@ var users = fs.readFileSync("data/users.json", 'utf8');
 for(var i=0;i<allusers.length;i++)
 {
 	try {
-	  if (fs.existsSync("user_ans/"+allusers[i].userid+"_quiz.json")) {
+	 // if (fs.existsSync("user_ans/"+allusers[i].userid+"_quiz.json")) {
+	 if (fileExist("user_ans/"+allusers[i].userid+"_quiz.json",userPapers.Contents)) {
 		//file exists
 		allusers[i].exam_status="Appeared";
 	  }
