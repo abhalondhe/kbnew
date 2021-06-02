@@ -13,8 +13,8 @@ var path = require('ejs');
 var AWS = require('aws-sdk');
 
 var s3 = new AWS.S3({
-    accessKeyId: 'AKIAVVH2KSB72PLJPBTJ',
-    secretAccessKey: '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'
+    accessKeyId: '',
+    secretAccessKey: ''
 });
 var app = express();
 
